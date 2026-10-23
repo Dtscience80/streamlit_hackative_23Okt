@@ -30,7 +30,7 @@ with st.sidebar:
     )
     model_name = st.selectbox(
         "Model Gemini",
-        options=["gemini-2.5-flash", "gemini-2.5-flash-lite"],
+        options=["gemini-3.5-flash", "gemini-3.5-flash-lite"],
         index=0,
     )
     system_instruction = st.text_area(
