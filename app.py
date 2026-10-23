@@ -137,7 +137,7 @@ with st.sidebar:
     st.markdown("[Dapatkan API key di Google AI Studio](https://aistudio.google.com/apikey)")
     model = st.selectbox(
         "Model LLM",
-        ["gemini-2.5-flash", "gemini-2.5-flash-lite"],
+        ["gemini-3.5-flash", "gemini-3.5-flash-lite"],
         help="Pilih model yang tersedia pada akun/API key Anda.",
     )
     st.divider()
