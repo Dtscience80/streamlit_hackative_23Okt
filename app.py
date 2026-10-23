@@ -63,8 +63,29 @@ st.markdown("""
         border-radius: 18px; padding: 1rem 1.1rem;
         box-shadow: 0 7px 22px rgba(79,70,229,.06);
     }
-    [data-testid="stMetricLabel"] {color: #6366f1 !important; font-weight: 650;}
-    [data-testid="stMetricValue"] {color: #312e81 !important;}
+    [data-testid="stMetricLabel"] {
+        color: #6366f1 !important;
+        font-weight: 650;
+        white-space: normal !important;
+        overflow: visible !important;
+        text-overflow: clip !important;
+    }
+    [data-testid="stMetricValue"] {
+        color: #312e81 !important;
+        font-size: clamp(1.15rem, 2vw, 2rem) !important;
+        line-height: 1.25 !important;
+        white-space: normal !important;
+        overflow: visible !important;
+        text-overflow: clip !important;
+        overflow-wrap: anywhere !important;
+        word-break: normal !important;
+    }
+    [data-testid="stMetric"] [data-testid="stMetricValue"] > div {
+        white-space: normal !important;
+        overflow: visible !important;
+        text-overflow: clip !important;
+        overflow-wrap: anywhere !important;
+    }
     div[data-testid="stChatMessage"] {
         border: 1px solid #e0e7ff; border-radius: 18px; padding: .65rem .8rem;
         background: rgba(255,255,255,.9); box-shadow: 0 5px 18px rgba(79,70,229,.05);
