@@ -1,15 +1,17 @@
-# Gemini Chatbot dengan Streamlit
+# EduML — Chatbot Edukasi Machine Learning
 
-Aplikasi chatbot sederhana berbasis **Streamlit** dan **Google Gemini API**, diadaptasi dari notebook training `23okt_streamlit_for_chatbot.py`.
+EduML adalah aplikasi chatbot edukasi berbasis Streamlit dan Google Gemini API untuk membantu siswa SMA/SMK (STM) mengenal konsep Machine Learning dengan bahasa yang ramah dan bertahap.
 
 ## Fitur
 
-- Antarmuka chat menggunakan `st.chat_message()` dan `st.chat_input()`.
-- Riwayat percakapan tersimpan selama sesi aplikasi aktif.
-- Pengaturan model Gemini dari sidebar.
-- Instruksi sistem dapat disesuaikan.
-- Tombol untuk mereset percakapan.
-- API key dapat dimasukkan melalui sidebar atau disimpan di Streamlit Secrets.
+- UI profesional, ceria, dan futuristik dengan gradasi ungu-biru-pink, aksen cyan, kartu modern, serta panel pengaturan yang responsif.
+- API key Google Gemini dimasukkan manual melalui sidebar.
+- Pilihan model Gemini.
+- Parameter LLM: temperature, top-p, dan batas token keluaran.
+- Pengaturan gaya mengajar, tingkat materi, dan instruksi tambahan.
+- Prompt cepat untuk topik dasar, AI vs ML, jenis ML, proyek sekolah, Python, dan kuis.
+- Riwayat chat selama sesi Streamlit aktif dan tombol reset.
+- System instruction dirancang untuk pelajar tingkat sekolah menengah serta menekankan etika dan keterbatasan AI.
 
 ## Struktur repository
 
@@ -17,83 +19,74 @@ Aplikasi chatbot sederhana berbasis **Streamlit** dan **Google Gemini API**, dia
 .
 ├── app.py
 ├── requirements.txt
-└── README.md
+├── README.md
+└── .gitignore
 ```
 
-## 1. Menyiapkan Google Gemini API Key
+## Persyaratan
 
-1. Buka [Google AI Studio](https://aistudio.google.com/).
-2. Buat atau salin API key.
-3. Jangan menaruh API key langsung di source code atau repository GitHub publik.
+- Python 3.10 atau lebih baru.
+- Google Gemini API key dari [Google AI Studio](https://aistudio.google.com/apikey).
+- Koneksi internet saat menjalankan aplikasi.
 
-## 2. Menjalankan secara lokal
+## Jalankan di komputer lokal
 
-Pastikan Python 3.10 atau lebih baru telah terpasang. Di terminal, jalankan:
+Buat dan aktifkan virtual environment:
 
 ```bash
 python -m venv .venv
 ```
 
-Aktifkan virtual environment:
+Windows PowerShell:
 
-**Windows PowerShell**
 ```powershell
 .venv\Scripts\Activate.ps1
 ```
 
-**macOS/Linux**
+macOS/Linux:
+
 ```bash
 source .venv/bin/activate
 ```
 
-Install dependency dan jalankan aplikasi:
+Install dependensi dan jalankan:
 
 ```bash
 pip install -r requirements.txt
 streamlit run app.py
 ```
 
-Buka alamat lokal yang ditampilkan oleh Streamlit, biasanya `http://localhost:8501`. Masukkan API key di sidebar.
+Buka URL lokal yang ditampilkan Streamlit, biasanya `http://localhost:8501`. Masukkan API key pada sidebar.
 
-## 3. Deploy ke GitHub
+## Deploy ke GitHub dan Streamlit Community Cloud
 
-1. Buat repository baru di [GitHub](https://github.com/).
-2. Unggah `app.py`, `requirements.txt`, dan `README.md` ke root repository.
-3. Pastikan API key tidak ikut diunggah.
-4. Commit dan push perubahan.
+1. Buat repository di [GitHub](https://github.com/new).
+2. Unggah `app.py`, `requirements.txt`, `README.md`, dan `.gitignore` ke root repository.
+3. Jangan commit API key atau kredensial.
+4. Buka [Streamlit Community Cloud](https://share.streamlit.io/) dan login dengan GitHub.
+5. Pilih **Create app**, lalu pilih repository, branch `main`, dan file utama `app.py`.
+6. Klik **Deploy**. Karena API key dimasukkan manual di sidebar, Anda tidak perlu menaruh key di source code atau Secrets untuk pola penggunaan ini.
 
-Jika menggunakan Git dari terminal:
+## Parameter model
 
-```bash
-git init
-git add app.py requirements.txt README.md
-git commit -m "Add Streamlit Gemini chatbot"
-git branch -M main
-git remote add origin https://github.com/USERNAME/NAMA-REPOSITORY.git
-git push -u origin main
-```
+- **Temperature (0.0–1.5):** nilai rendah cenderung menghasilkan jawaban lebih konsisten; nilai tinggi lebih bervariasi. Nilai awal 0.5 dipilih untuk pembelajaran.
+- **Top-p (0.1–1.0):** mengatur cakupan kandidat token yang dipertimbangkan saat menghasilkan teks. Nilai awal 0.9.
+- **Maximum output tokens:** membatasi panjang keluaran model. Nilai awal 1536 token.
+- **Model:** daftar model disediakan di aplikasi. Model yang benar-benar tersedia dapat bergantung pada akses dan kebijakan akun Google.
 
-Ganti `USERNAME` dan `NAMA-REPOSITORY` dengan informasi repository Anda.
+Perubahan konfigurasi memulai konteks percakapan baru agar pengaturan yang terlihat konsisten dengan sesi model yang aktif.
 
-## 4. Deploy ke Streamlit Community Cloud
+## Keamanan dan keterbatasan
 
-1. Buka [Streamlit Community Cloud](https://share.streamlit.io/).
-2. Login dan hubungkan akun GitHub.
-3. Pilih **Create app**.
-4. Pilih repository, branch `main`, dan file utama `app.py`.
-5. Pada bagian **Advanced settings / Secrets**, tambahkan:
+- API key dimasukkan sebagai input bertipe password dan tidak ditulis ke file Python. Hindari membagikan layar atau perangkat ketika key sedang dimasukkan.
+- Jangan pernah menambahkan API key ke GitHub.
+- Riwayat percakapan tersimpan di session state dan bukan penyimpanan permanen.
+- Respons AI bisa keliru. Verifikasi informasi penting, khususnya ketika mengerjakan tugas sekolah atau membuat proyek.
+- Penggunaan API dapat tunduk pada kuota, biaya, serta ketentuan Google yang berlaku.
 
-```toml
-GOOGLE_API_KEY = "MASUKKAN_API_KEY_ANDA"
-```
+## Troubleshooting
 
-6. Deploy aplikasi. Setelah selesai, Streamlit akan memberikan URL publik.
-
-Aplikasi juga menyediakan kolom API key di sidebar. Untuk aplikasi publik, lebih disarankan memakai **Secrets** daripada meminta setiap pengunjung memasukkan key milik mereka sendiri.
-
-## Catatan
-
-- Penggunaan Gemini tunduk pada kuota, ketersediaan model, dan ketentuan Google AI Studio.
-- Jika muncul error, periksa API key, kuota, koneksi, dan apakah model yang dipilih tersedia untuk akun Anda.
-- Riwayat chat disimpan dalam session state aplikasi dan tidak dirancang sebagai penyimpanan permanen.
-- Jangan commit file `.env`, token, atau kredensial ke repository publik.
+- **API key ditolak:** pastikan key benar, aktif, dan memiliki akses ke Gemini API.
+- **Model tidak tersedia:** pilih model lain dari dropdown atau periksa model yang didukung akun Anda.
+- **Quota / rate limit:** periksa kuota dan penggunaan pada Google AI Studio.
+- **Dependency error:** gunakan Python 3.10+ lalu jalankan ulang `pip install -r requirements.txt`.
